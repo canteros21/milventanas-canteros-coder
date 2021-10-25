@@ -1,12 +1,12 @@
+import Botonera from './components/Navbar/Botonera.jsx';
+
+
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <h1>Primera Clase - Canteros</h1>
-      </header>
-    </div>
+    <Botonera />
   );
 }
 

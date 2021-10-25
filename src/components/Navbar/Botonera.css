@@ -1,0 +1,9 @@
+.navbar  {
+    background: none;
+    border: none;
+    margin-bottom: 5vh;
+}
+
+.navbar-brand {
+    width: 8vw;
+}
