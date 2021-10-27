@@ -1,7 +1,5 @@
-import { Container, Nav, Navbar, Button } from 'react-bootstrap'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faShoppingCart } from '@fortawesome/free-solid-svg-icons'
-
+import { Container, Nav, Navbar } from 'react-bootstrap'
+import CartWidget from '../CartWidget/CartWidget.jsx'
 
 import logo from './logo.png'
 import './Botonera.css';
@@ -22,7 +20,7 @@ const Botonera = () => {
                         })}
 
                     </Nav>
-                    <Button variant="outline-danger"><FontAwesomeIcon icon={faShoppingCart} /></Button>
+                    <CartWidget />
                 </Navbar.Collapse>
             </Container>
         </Navbar>

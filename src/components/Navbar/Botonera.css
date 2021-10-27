@@ -1,9 +1,11 @@
-.navbar  {
+
+header .navbar  {
     background: none;
     border: none;
     margin-bottom: 5vh;
+    font-weight: 700;
 }
 
-.navbar-brand {
+header .navbar .navbar-brand {
     width: 8vw;
 }

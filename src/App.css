@@ -1,3 +1,8 @@
 html, body {
-  font-size: 16px;
+  font-size: 16px!important;
+  font-family: 'Titillium Web', sans-serif!important;
+}
+
+header {
+  height: 8vh;
 }
