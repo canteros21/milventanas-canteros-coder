@@ -11,7 +11,7 @@ function App() {
       <header>
         <Botonera />
       </header>
-      <ItemListContainer greeting="Bienvenidos a Mil Ventanas" />
+      <ItemListContainer greeting="Novedades" />
     </main>
   );
 }

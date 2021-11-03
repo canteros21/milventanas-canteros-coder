@@ -1,0 +1,46 @@
+.counter-wrapper {
+}
+
+.counter-wrapper .counter-group {
+    width: 100%;
+    display: flex;
+}
+
+.counter-wrapper .counter-group-button {
+    flex: 33%;
+}
+
+
+.card .card-header {
+    background-color: brown;
+    color: #FFF;
+}
+
+.card .card-body .card-title{
+    font-size: 1.75em;
+}
+
+.card .card-footer .counter-group button{
+    background-color: #FFF;
+    color: red;
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+.card .card-footer .counter-group button:disabled {
+    background-color: rgb(221, 221, 221);
+    color: #000;
+}
+
+.card .card-footer .counter-group button.counter {
+    background-color: #FFF;
+    color: black;
+    font-weight: bold;
+    font-size: 1.5em;
+}
+
+.card .card-footer .btn-danger {
+    background-color: rgb(243, 229, 40);
+    color: rgb(0, 0, 0);
+    border-color: rgb(212, 197, 62);
+}
