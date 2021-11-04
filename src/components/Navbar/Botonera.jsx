@@ -16,7 +16,7 @@ const Botonera = () => {
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
                         {botones.map(function (item, i) {
-                            return <Nav.Link href='#'>{item}</Nav.Link>
+                            return <Nav.Link key={i} href='#'>{item}</Nav.Link>
                         })}
 
                     </Nav>

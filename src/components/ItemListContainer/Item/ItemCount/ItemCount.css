@@ -1,0 +1,28 @@
+
+.counter-wrapper .counter-group {
+    width: 100%;
+    display: flex;
+}
+
+.counter-wrapper .counter-group-button {
+    flex: 33%;
+}
+
+.counter-group button{
+    background-color: #FFF;
+    color: red;
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+.counter-group button:disabled {
+    background-color: rgb(221, 221, 221);
+    color: #000;
+}
+
+.counter-group button.counter {
+    background-color: #FFF;
+    color: black;
+    font-weight: bold;
+    font-size: 1.5em;
+}
