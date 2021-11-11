@@ -1,6 +1,6 @@
 import React from 'react'
 import { Container, Row, Col } from 'react-bootstrap'
-import ItemList from './ItemList.jsx'
+import ItemList from '../ItemList/ItemList.jsx'
 
 import './ItemListContainer.css';
 

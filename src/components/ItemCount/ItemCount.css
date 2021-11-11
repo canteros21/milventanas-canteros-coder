@@ -2,6 +2,7 @@
 .counter-wrapper .counter-group {
     width: 100%;
     display: flex;
+    margin-top: 5vh;
 }
 
 .counter-wrapper .counter-group-button {

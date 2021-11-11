@@ -1,6 +1,6 @@
 import  { React } from 'react'
 import { Card, Image } from 'react-bootstrap'
-import ItemCount from './ItemCount/ItemCount.jsx'
+import ItemCount from '../ItemCount/ItemCount.jsx'
 
 
 import './Item.css';

@@ -1,0 +1,36 @@
+.item-detail h3 {
+    color: #e02d2d;
+    margin-top: 5vh;
+    font-size: 3em;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.item-detail h4 {
+    background-color: #e9d20c;
+    color: #FFF;
+    display: inline-block;
+    padding: 1vh 1vw;
+    font-size: 2em;
+    font-weight: bold;
+    margin-top: 2vh;
+}
+
+.item-detail p {
+    font-size: 1.2em;
+    margin-top: 2vh;
+}
+
+.item-detail .cart-button {
+    display: inline-block;
+    background-color: black;
+    color: #FFF;
+    text-decoration: none!important;
+    font-size: 1.6em;
+    padding: 1vh 1vw;
+    margin-top: 5vh;
+}
+
+.item-detail h6 {
+    font-size: 1.1em;
+}
