@@ -9,3 +9,7 @@ header .navbar  {
 header .navbar .navbar-brand {
     width: 8vw;
 }
+
+.active {
+    color: rgb(255, 196, 0)!important;
+}

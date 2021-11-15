@@ -6,3 +6,8 @@ html, body {
 header {
   height: 8vh;
 }
+
+
+.loading-title {
+  margin-top: 5vh;
+}

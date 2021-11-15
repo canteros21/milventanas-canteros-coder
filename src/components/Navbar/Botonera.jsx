@@ -1,26 +1,40 @@
 import { Container, Nav, Navbar } from 'react-bootstrap'
 import CartWidget from '../CartWidget/CartWidget.jsx'
+import { Link } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 
 import logo from './logo.png'
 import './Botonera.css';
 
-const botones = ['Novedades', 'Categorías', 'Editoriales', 'Contacto']
+const botones = [
+    { id: 0, nombre: "Novedades", link: "/novedades"},
+    { id: 1, nombre: "Nacional", link: "/categoria/nacional"},
+    { id: 2, nombre: "Internacional", link: "/categoria/internacional"},
+    //{ id: 3, nombre: "Editoriales", link: "editoriales"},
+    { id: 3, nombre: "Contacto", link: "/contacto"},
+
+]
 
 const Botonera = () => {
+    
+  const location = useLocation();
+
 
     return (
         <Navbar bg="light" fixed="top" expand="lg">
             <Container>
-                <Navbar.Brand href="#home"><img src={logo} className="img-fluid" alt="Mil Ventanas, tienda de novelas y comics" /></Navbar.Brand>
+                <Navbar.Brand  as={Link} to="/"><img src={logo} className="img-fluid" alt="Mil Ventanas, tienda de novelas y comics" /></Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
-                    <Nav className="me-auto">
-                        {botones.map(function (item, i) {
-                            return <Nav.Link key={i} href='#'>{item}</Nav.Link>
+                    <Nav className="me-auto" activeKey={location.pathname}>
+                        {botones.map(function (item) {
+                            return <Nav.Link key={item.id} as={Link} to={item.link}>{item.nombre}</Nav.Link>
                         })}
 
                     </Nav>
-                    <CartWidget />
+                    <Link to="cart">
+                        <CartWidget />
+                    </Link>
                 </Navbar.Collapse>
             </Container>
         </Navbar>

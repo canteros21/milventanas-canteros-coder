@@ -1,11 +1,10 @@
-import  { React } from 'react'
-import { Card, Image } from 'react-bootstrap'
-import ItemCount from '../ItemCount/ItemCount.jsx'
-
+import { React } from 'react'
+import { Button, Card, Image } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
 
 import './Item.css';
 
-const Item = ({ nombre, stock, editorial, image, precio }) => {
+const Item = ({ ruta, nombre, editorial, image, precio }) => {
 
 
     return (
@@ -17,10 +16,11 @@ const Item = ({ nombre, stock, editorial, image, precio }) => {
                 <Image src={image} rounded fluid />
             </Card.Body>
             <Card.Footer>
-                <ItemCount nombre={nombre} stock={stock} initial={0} />
+                <Link to={`/producto/${ruta}`}>
+                    <Button variant="danger">Ver detalle</Button>
+                </Link>
             </Card.Footer>
         </Card>
-
     )
 }
 

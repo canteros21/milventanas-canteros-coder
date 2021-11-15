@@ -1,12 +1,15 @@
 import { React, useState } from 'react'
 import { InputGroup, Button } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
 
 
 import './ItemCount.css';
 
-const ItemCount = ({ nombre, stock, initial, onAdd }) => {
+const ItemCount = ({ stock, initial, onAdd }) => {
 
     const [count, setCount] = useState(initial)
+    const [cambiarBoton, setCambiarBoton] = useState(false)
+
 
     const sumarCantidad = () => {
         if (count <= stock) {
@@ -22,13 +25,16 @@ const ItemCount = ({ nombre, stock, initial, onAdd }) => {
 
     }
 
-    onAdd = () => {
+    const agregar = () => {
 
-        if (count == 0) {
+        if (count === 0) {
             alert("No agregaste ningún ejemplar o no tenemos habilitado stock del mismo");
         } else {
-            console.log(`Agregaste ${count} ejemplares de: '${nombre}' al Carrito`);
+            onAdd(count)
+            setCount(count)
+            setCambiarBoton(true)
         }
+
     }
 
     return (
@@ -38,7 +44,16 @@ const ItemCount = ({ nombre, stock, initial, onAdd }) => {
                 <Button variant="outline-secondary" className="counter-group-button counter" disabled>{count}</Button>
                 <Button variant="outline-secondary" className="counter-group-button" onClick={sumarCantidad} disabled={count >= stock}>+</Button>
             </InputGroup>
-            <Button variant="danger" size="lg" onClick={onAdd} disabled={count == 0}>Agregar al carrito</Button>
+
+            {
+                cambiarBoton ?
+
+                    <Link to="/cart">
+                        <Button variant="danger" size="lg" >Finalizar compra</Button>
+                    </Link>
+                    :
+                    <Button variant="danger" size="lg" onClick={agregar} disabled={count === 0}>Agregar al carrito</Button>
+            }
         </div>
 
     )
