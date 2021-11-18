@@ -1,5 +1,6 @@
 import { React, useState } from 'react'
 import { Row, Col, Image } from 'react-bootstrap'
+import { useNavigate } from 'react-router-dom'
 import ItemCount from '../ItemCount/ItemCount.jsx'
 
 import './ItemDetail.css';
@@ -8,11 +9,22 @@ import './ItemDetail.css';
 const ItemDetail = ({ product }) => {
 
     const [count, setCount] = useState(0);
+    const [stock, setStock] = useState(product.stock);
 
+    let history = useNavigate();
 
     const onAdd = (cantidad) => {
         setCount(cantidad)
+
+        restarDelStock(cantidad)
     }
+
+    const restarDelStock = (stockComprado) => {
+
+        setStock(stock - stockComprado)
+
+    }
+
 
 
     return (
@@ -29,16 +41,21 @@ const ItemDetail = ({ product }) => {
                     <h5>{product.autor} - {product.editorial}</h5>
                     <h4>${product.precio}</h4>
                     {product.detail}
-                    <h6>Stock: <b>{product.stock}</b></h6>
+                    <h6>Stock: <b>{stock}</b></h6>
 
                     <Row>
                         <Col xs={{ span: 4, offset: 8 }} >
                             <ItemCount nombre={product.nombre} stock={product.stock} initial={0} onAdd={onAdd} />
                         </Col>
                     </Row>
+                    <Row>
+                        <Col xs={{ span: 2, offset: 10 }} >
+                            <button onClick={() => { history(-1) }} className="btn-volver">Volver</button>
+                        </Col>
+                    </Row>
                 </Col>
-            </Row>
-        </div>
+            </Row >
+        </div >
 
     )
 }

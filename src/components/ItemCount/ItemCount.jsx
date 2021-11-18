@@ -8,7 +8,8 @@ import './ItemCount.css';
 const ItemCount = ({ stock, initial, onAdd }) => {
 
     const [count, setCount] = useState(initial)
-    const [cambiarBoton, setCambiarBoton] = useState(false)
+    const [changeButton, setChangeButton] = useState(false)
+    const [hasAdded, sethasAdded] = useState(false)
 
 
     const sumarCantidad = () => {
@@ -32,7 +33,8 @@ const ItemCount = ({ stock, initial, onAdd }) => {
         } else {
             onAdd(count)
             setCount(count)
-            setCambiarBoton(true)
+            setChangeButton(true)
+            sethasAdded(true)
         }
 
     }
@@ -40,13 +42,13 @@ const ItemCount = ({ stock, initial, onAdd }) => {
     return (
         <div className="counter-wrapper d-grid">
             <InputGroup className="counter-group mb-3">
-                <Button variant="outline-secondary" className="counter-group-button" onClick={restarCantidad} disabled={count <= initial}>-</Button>
-                <Button variant="outline-secondary" className="counter-group-button counter" disabled>{count}</Button>
-                <Button variant="outline-secondary" className="counter-group-button" onClick={sumarCantidad} disabled={count >= stock}>+</Button>
+                <Button variant="outline-secondary" className="counter-group-button" onClick={restarCantidad} disabled={count <= initial || hasAdded}>-</Button>
+                <Button variant="outline-secondary" className={hasAdded? "counter-group-button counter-disabled" : "counter-group-button counter" } disabled>{count}</Button>
+                <Button variant="outline-secondary" className="counter-group-button" onClick={sumarCantidad} disabled={count >= stock || hasAdded}>+</Button>
             </InputGroup>
 
             {
-                cambiarBoton ?
+                changeButton ?
 
                     <Link to="/cart">
                         <Button variant="danger" size="lg" >Finalizar compra</Button>

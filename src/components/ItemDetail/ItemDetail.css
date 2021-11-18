@@ -34,3 +34,16 @@
 .item-detail h6 {
     font-size: 1.1em;
 }
+
+.btn-volver {
+    display: block;
+    width: 100%;
+    background: none;
+    color: #e02d2d;
+    text-align: right;
+    font-size: 1.6em;
+    border: none;
+    margin-top: 5vh;
+    text-transform: uppercase;
+    font-weight: bold;
+}
