@@ -13,3 +13,23 @@ header .navbar .navbar-brand {
 .active {
     color: rgb(255, 196, 0)!important;
 }
+
+.cart-widget {
+    position: relative;
+}
+
+.cart-widget .total-products-badge {
+    background-color: rgb(255, 196, 0);
+    border-radius: 1em;
+    color: rgb(0, 0, 0);
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: 1.5;
+    font-size: 1em;
+    position: absolute;
+    display: inline-block;
+    padding: .25vh .5vw;
+    top: 0;
+    right: 0;
+    transform: translate(50%, -50%);
+}

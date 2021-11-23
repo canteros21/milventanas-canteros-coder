@@ -1,6 +1,7 @@
 import { React, useState } from 'react'
 import { Row, Col, Image } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom'
+import { useCartContext } from '../../context/CartContext.jsx';
 import ItemCount from '../ItemCount/ItemCount.jsx'
 
 import './ItemDetail.css';
@@ -11,21 +12,19 @@ const ItemDetail = ({ product }) => {
     const [count, setCount] = useState(0);
     const [stock, setStock] = useState(product.stock);
 
+    const { totalItems, setTotalItems, totalPrice, setTotalPrice, agregarAlCarro } = useCartContext()
+
     let history = useNavigate();
 
     const onAdd = (cantidad) => {
+
+        let subtotal = product.precio * cantidad
+
         setCount(cantidad)
-
-        restarDelStock(cantidad)
+        setTotalItems(totalItems + cantidad)
+        setTotalPrice(totalPrice + subtotal)
+        agregarAlCarro({ ...product, cantidadAgregada: cantidad, subtotal: subtotal }, cantidad)
     }
-
-    const restarDelStock = (stockComprado) => {
-
-        setStock(stock - stockComprado)
-
-    }
-
-
 
     return (
 

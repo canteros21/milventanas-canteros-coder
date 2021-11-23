@@ -41,20 +41,23 @@ const ItemCount = ({ stock, initial, onAdd }) => {
 
     return (
         <div className="counter-wrapper d-grid">
-            <InputGroup className="counter-group mb-3">
-                <Button variant="outline-secondary" className="counter-group-button" onClick={restarCantidad} disabled={count <= initial || hasAdded}>-</Button>
-                <Button variant="outline-secondary" className={hasAdded? "counter-group-button counter-disabled" : "counter-group-button counter" } disabled>{count}</Button>
-                <Button variant="outline-secondary" className="counter-group-button" onClick={sumarCantidad} disabled={count >= stock || hasAdded}>+</Button>
-            </InputGroup>
+
 
             {
                 changeButton ?
 
                     <Link to="/cart">
-                        <Button variant="danger" size="lg" >Finalizar compra</Button>
+                        <Button variant="danger" className="go-to-cart-button" size="lg" >Finalizar compra</Button>
                     </Link>
                     :
-                    <Button variant="danger" size="lg" onClick={agregar} disabled={count === 0}>Agregar al carrito</Button>
+                    <>
+                        <InputGroup className="counter-group mb-3">
+                            <Button variant="outline-secondary" className="counter-group-button" onClick={restarCantidad} disabled={count <= initial || hasAdded}>-</Button>
+                            <Button variant="outline-secondary" className={hasAdded ? "counter-group-button counter-disabled" : "counter-group-button counter"} disabled>{count}</Button>
+                            <Button variant="outline-secondary" className="counter-group-button" onClick={sumarCantidad} disabled={count >= stock || hasAdded}>+</Button>
+                        </InputGroup>
+                        <Button variant="danger" size="lg" onClick={agregar} disabled={count === 0}>Agregar al carrito</Button>
+                    </>
             }
         </div>
 
