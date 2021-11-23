@@ -23,7 +23,7 @@ const ItemDetail = ({ product }) => {
         setCount(cantidad)
         setTotalItems(totalItems + cantidad)
         setTotalPrice(totalPrice + subtotal)
-        agregarAlCarro({ ...product, cantidadAgregada: cantidad, subtotal: subtotal }, cantidad)
+        agregarAlCarro({ ...product, cantidadAgregada: cantidad, subtotal: subtotal }, cantidad, subtotal)
     }
 
     return (

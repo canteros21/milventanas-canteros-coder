@@ -13,7 +13,7 @@ const CartContextProvider = ({ children }) => {
     const [totalPrice, setTotalPrice] = useState(0)
 
 
-    function agregarAlCarro(producto, cantSelected) {
+    function agregarAlCarro(producto, cantSelected, subtotalAdded) {
 
         const currentItemId = producto.id
 
@@ -21,6 +21,7 @@ const CartContextProvider = ({ children }) => {
             cartList.forEach((prod) => {
                 if (prod.id === currentItemId) {
                     prod.cantidadAgregada = prod.cantidadAgregada + cantSelected
+                    prod.subtotal = prod.subtotal + subtotalAdded
                 }
             });
 
