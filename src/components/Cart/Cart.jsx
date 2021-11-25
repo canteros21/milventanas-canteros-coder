@@ -1,3 +1,4 @@
+import { useState, useEffect, memo } from 'react'
 import { Container, Row, Col, Button } from 'react-bootstrap'
 import { useCartContext } from '../../context/CartContext'
 import CartListItem from '../CartListItem/CartListItem.jsx'
@@ -5,27 +6,27 @@ import { Link } from 'react-router-dom'
 
 import './Cart.css';
 
-const Cart = () => {
+const Cart = memo(() => {
 
-    const { cartList, totalPrice, setTotalPrice, totalItems, setTotalItems } = useCartContext()
+    const { quitarTodo, cartList, precioTotal, borrarDelCarro } = useCartContext()
 
-    console.log(cartList)
-
-    const removeProduct = (currentItemId) => {
+    const [isModified, setIsModified] = useState(false)
 
 
-        cartList.forEach((prod) => {
-            if (prod.id === currentItemId) {
-                cartList.splice(cartList.findIndex(a => a.id === prod.id), 1)
+    useEffect(() => {
+        setTimeout(() => {
+            setIsModified(false)
+        }, 1000);
+    }, [isModified])
 
-                console.log(totalPrice)
-                let subtotalAQuitar = prod.cantidadAgregada * prod.precio
 
-                setTotalPrice(totalPrice - subtotalAQuitar)
-                setTotalItems(totalItems - prod.cantidadAgregada)
-            }
-        });
+    const onRemove = (currentItemId) => {
+
+        setIsModified(true)
+        borrarDelCarro(currentItemId)
+
     }
+
 
     return (
         <>
@@ -42,13 +43,13 @@ const Cart = () => {
                                 <h5>Subtotal</h5>
                             </Col>
                         </Row>
-
                         {cartList.map((product, index) =>
-                            <CartListItem key={index} product={product} removeProduct={removeProduct} />
+                            <CartListItem key={index} product={product} onRemove={onRemove} />
                         )}
                         <Row>
-                            <Col xs={{ span: 2, offset: 10 }}>
-                                <h3>Total: <b>${totalPrice}</b></h3>
+                            <Col xs={{ span: 3, offset: 9 }}>
+                                <h3 className="total-label">Total: <b>${precioTotal()}</b></h3>
+                                <button className="btn-quitar-todo" onClick={quitarTodo}>Quitar todos los productos</button>
                             </Col>
                         </Row>
                     </Container >
@@ -61,5 +62,5 @@ const Cart = () => {
             }
         </>
     )
-}
+}, (anterior, posterior) => anterior.cartList.length === posterior.cartList.length)
 export default Cart

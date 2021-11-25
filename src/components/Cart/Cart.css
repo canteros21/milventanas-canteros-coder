@@ -71,3 +71,27 @@
     background-color: rgb(201, 87, 5);
     background-color: chocolate;
 }
+
+.item-count-cart-list {
+    margin-top: 5vh;
+}
+
+.item-count-cart-list .counter-disabled{
+    background-color: #FFF!important;
+}
+
+.total-label {
+    text-align: right;
+}
+
+.btn-quitar-todo {
+    text-align: right;
+    width: 100%;
+    padding: 1vh 0;
+    background: none;
+    border: none;
+    color: rgb(158, 4, 4);
+    margin-top: 1vh;
+    font-size: 1.4em;
+    text-decoration: underline;
+}

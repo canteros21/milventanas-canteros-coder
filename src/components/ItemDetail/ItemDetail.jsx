@@ -1,4 +1,4 @@
-import { React, useState } from 'react'
+import { React, useState, useEffect } from 'react'
 import { Row, Col, Image } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom'
 import { useCartContext } from '../../context/CartContext.jsx';
@@ -10,21 +10,19 @@ import './ItemDetail.css';
 const ItemDetail = ({ product }) => {
 
     const [count, setCount] = useState(0);
-    const [stock, setStock] = useState(product.stock);
 
-    const { totalItems, setTotalItems, totalPrice, setTotalPrice, agregarAlCarro } = useCartContext()
+    const { agregarAlCarro, totalItems, setTotalItems } = useCartContext()
 
     let history = useNavigate();
 
     const onAdd = (cantidad) => {
 
         let subtotal = product.precio * cantidad
-
         setCount(cantidad)
         setTotalItems(totalItems + cantidad)
-        setTotalPrice(totalPrice + subtotal)
         agregarAlCarro({ ...product, cantidadAgregada: cantidad, subtotal: subtotal }, cantidad, subtotal)
     }
+
 
     return (
 
@@ -40,7 +38,7 @@ const ItemDetail = ({ product }) => {
                     <h5>{product.autor} - {product.editorial}</h5>
                     <h4>${product.precio}</h4>
                     {product.detail}
-                    <h6>Stock: <b>{stock}</b></h6>
+                    <h6>Stock: <b>{product.stock}</b></h6>
 
                     <Row>
                         <Col xs={{ span: 4, offset: 8 }} >

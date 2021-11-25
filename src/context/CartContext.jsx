@@ -10,7 +10,7 @@ const CartContextProvider = ({ children }) => {
 
     const [cartList, setCartList] = useState([])
     const [totalItems, setTotalItems] = useState(0)
-    const [totalPrice, setTotalPrice] = useState(0)
+    
 
 
     function agregarAlCarro(producto, cantSelected, subtotalAdded) {
@@ -32,18 +32,44 @@ const CartContextProvider = ({ children }) => {
 
     }
 
-    console.log(cartList);
+
+    function borrarDelCarro(currentItemId) {
+        
+        let newArr = cartList
+
+        newArr.forEach((prod) => {
+            if (prod.id === currentItemId) {
+                newArr.splice(newArr.findIndex(a => a.id === prod.id), 1)
+
+                setTotalItems(totalItems - prod.cantidadAgregada)
+            }
+        })
+
+        setCartList(newArr)
+    }
+
+
+    const precioTotal = () => {
+        return cartList.reduce((acum, prod) => acum + (prod.cantidadAgregada * prod.precio), 0)
+    }
+
+
+    const quitarTodo = () => {
+        setCartList([])
+    }
 
     return (
         <CartContext.Provider value={
             {
+                useCartContext,
                 cartList,
+                setCartList,
+                agregarAlCarro,
+                borrarDelCarro,
+                precioTotal,
                 totalItems,
                 setTotalItems,
-                useCartContext,
-                agregarAlCarro,
-                setTotalPrice,
-                totalPrice
+                quitarTodo
             }
         }>
             {children}
