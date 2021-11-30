@@ -27,6 +27,11 @@ const Cart = memo(() => {
 
     }
 
+    const removeAll = () => {
+        setIsModified(true)
+        quitarTodo()
+    }
+
 
     return (
         <>
@@ -49,7 +54,7 @@ const Cart = memo(() => {
                         <Row>
                             <Col xs={{ span: 3, offset: 9 }}>
                                 <h3 className="total-label">Total: <b>${precioTotal()}</b></h3>
-                                <button className="btn-quitar-todo" onClick={quitarTodo}>Quitar todos los productos</button>
+                                <button className="btn-quitar-todo" onClick={removeAll}>Quitar todos los productos</button>
                             </Col>
                         </Row>
                     </Container >

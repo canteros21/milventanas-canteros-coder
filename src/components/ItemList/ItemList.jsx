@@ -10,7 +10,7 @@ const ItemList = ({ products }) => {
 
         products.map(ele =>
             <Col key={ele.id} xs={3} >
-                <Item ruta={ele.ruta} nombre={ele.nombre} editorial={ele.editorial} stock={ele.stock} image={ele.img} precio={ele.precio} initial={0} />
+                <Item eleId={ele.id} ruta={ele.ruta} nombre={ele.nombre} editorial={ele.editorial} stock={ele.stock} image={ele.img} precio={ele.precio} initial={0} />
             </Col>
         )
     )

@@ -3,6 +3,7 @@ import { Container, Row } from 'react-bootstrap'
 import { productos } from '../Products.jsx'
 import { useParams } from 'react-router-dom'
 import ItemDetail from '../ItemDetail/ItemDetail.jsx'
+import { getFirestore } from '../../services/getFirestore.js'
 
 import './ItemDetailContainer.css';
 
@@ -26,26 +27,52 @@ const ItemDetailContainer = () => {
     const rutaProducto = params.productID;
 
 
+
     useEffect(() => {
+
+        const dbQuery = getFirestore()
 
         if (rutaProducto !== undefined) {
 
-            getProducto
-                .then(res => {
-                    setProduct(res.find(prod => prod.ruta === rutaProducto))
-                }).catch((err) => {
+            dbQuery.collection("productos").doc(rutaProducto).get()
+                .then(prod => {
+                    setProduct({ id: prod.id, ...prod.data() })
+                })
+                .catch((err) => {
                     console.log(`Error: ${err}`);
                 }).finally(() => setLoading(false))
+
         } else {
 
-            getProducto
-                .then(res => {
-                    setProduct(res)
-                }).catch((err) => {
+            dbQuery.collection("productos").get()
+                .then(data => {
+                    setProduct(data.docs.map(prod => ({ id: prod.id, ...prod.data() })))
+                })
+                .catch((err) => {
                     console.log(`Error: ${err}`);
                 }).finally(() => setLoading(false))
+
         }
 
+        /*
+            if (rutaProducto !== undefined) {
+            
+                getProducto
+                    .then(res => {
+                        setProduct(res.find(prod => prod.ruta === rutaProducto))
+                    }).catch((err) => {
+                        console.log(`Error: ${err}`);
+                    }).finally(() => setLoading(false))
+            } else {
+
+                getProducto
+                    .then(res => {
+                        setProduct(res)
+                    }).catch((err) => {
+                        console.log(`Error: ${err}`);
+                    }).finally(() => setLoading(false))
+            }
+        */
 
     }, [rutaProducto])
 

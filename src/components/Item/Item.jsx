@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 
 import './Item.css';
 
-const Item = ({ ruta, nombre, editorial, image, precio }) => {
+const Item = ({ eleId, ruta, nombre, editorial, image, precio }) => {
 
 
     return (
@@ -16,7 +16,7 @@ const Item = ({ ruta, nombre, editorial, image, precio }) => {
                 <Image src={image} rounded fluid />
             </Card.Body>
             <Card.Footer>
-                <Link to={`/producto/${ruta}`}>
+                <Link to={`/producto/${eleId}`}>
                     <Button variant="danger">Ver detalle</Button>
                 </Link>
             </Card.Footer>

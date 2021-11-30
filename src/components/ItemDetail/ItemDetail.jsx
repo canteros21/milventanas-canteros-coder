@@ -3,6 +3,7 @@ import { Row, Col, Image } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom'
 import { useCartContext } from '../../context/CartContext.jsx';
 import ItemCount from '../ItemCount/ItemCount.jsx'
+import ReactHtmlParser from 'react-html-parser';
 
 import './ItemDetail.css';
 
@@ -37,7 +38,7 @@ const ItemDetail = ({ product }) => {
                     <h3 className="title">{product.nombre}</h3>
                     <h5>{product.autor} - {product.editorial}</h5>
                     <h4>${product.precio}</h4>
-                    {product.detail}
+                    <div className="info">{ReactHtmlParser(product.detail)}</div>
                     <h6>Stock: <b>{product.stock}</b></h6>
 
                     <Row>

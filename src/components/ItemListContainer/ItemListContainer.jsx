@@ -1,6 +1,7 @@
 import { React, useState, useEffect } from 'react'
 import { Container, Row } from 'react-bootstrap'
 import { useParams } from 'react-router-dom';
+import { getFirestore } from '../../services/getFirestore.js';
 import ItemList from '../ItemList/ItemList.jsx'
 import { productos } from '../Products.jsx'
 
@@ -27,7 +28,44 @@ const ItemListContainer = ({ isNovedad }) => {
 
     useEffect(() => {
 
+        const dbQuery = getFirestore()
+
         if (categoria !== undefined) {
+
+            dbQuery.collection("productos").where("categoria", "==", categoria).get()
+                .then(data => {
+                    setProducts(data.docs.map(prod => ({ id: prod.id, ...prod.data() })))
+                })
+                .catch((err) => {
+                    console.log(`Error: ${err}`);
+                }).finally(() => setLoading(false))
+
+
+        } else if (isNovedad) {
+
+            dbQuery.collection("productos").where("isNovedad", "==", true).get()
+                .then(data => {
+                    setProducts(data.docs.map(prod => ({ id: prod.id, ...prod.data() })))
+                })
+                .catch((err) => {
+                    console.log(`Error: ${err}`);
+                }).finally(() => setLoading(false))
+
+        } else {
+
+            dbQuery.collection("productos").get()
+                .then(data => {
+                    setProducts(data.docs.map(prod => ({ id: prod.id, ...prod.data() })))
+                })
+                .catch((err) => {
+                    console.log(`Error: ${err}`);
+                }).finally(() => setLoading(false))
+                
+        }
+
+
+
+        /*if (categoria !== undefined) {
 
             getProductos
                 .then(res => {
@@ -51,7 +89,7 @@ const ItemListContainer = ({ isNovedad }) => {
                 }).catch((err) => {
                     console.log(`Error: ${err}`);
                 }).finally(() => setLoading(false))
-        }
+        }*/
 
     }, [categoria, isNovedad])
 

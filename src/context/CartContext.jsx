@@ -55,6 +55,7 @@ const CartContextProvider = ({ children }) => {
 
 
     const quitarTodo = () => {
+        setTotalItems(0)
         setCartList([])
     }
 
