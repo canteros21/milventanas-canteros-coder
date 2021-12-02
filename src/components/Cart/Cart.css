@@ -95,3 +95,16 @@
     font-size: 1.4em;
     text-decoration: underline;
 }
+
+.btn-terminar-compra {
+    background-color: rgb(199, 5, 5);
+    border-radius: .5em;
+    padding: .65vh 1.2vw;
+    font-size: 1.6em;
+    color: #FFF;
+    font-weight: bold;
+    border: none;
+    width: 100%;
+    text-transform: uppercase;
+    margin-top: 5vh;
+}
