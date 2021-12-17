@@ -2,6 +2,7 @@ import { useState, useEffect, memo } from 'react'
 import { Container, Row, Col, Button, Modal } from 'react-bootstrap'
 import { useCartContext } from '../../context/CartContext'
 import CartListItem from '../CartListItem/CartListItem.jsx'
+import OrderList from '../OrderList/OrderList.jsx'
 import { Link } from 'react-router-dom'
 import firebase from "firebase"
 import 'firebase/firestore'
@@ -14,8 +15,20 @@ const Cart = memo(() => {
     const { quitarTodo, cartList, precioTotal, borrarDelCarro } = useCartContext()
 
     const [isModified, setIsModified] = useState(false)
+    const [isFormSent, setIsFormSent] = useState(false)
+    const [orderDone, setOrderDone] = useState(false)
     const [showModal, setShowModal] = useState(false)
+    const [nameWrong, setNameWrong] = useState(false)
+    const [telWrong, setTelWrong] = useState(false)
+    const [emailWrong, setEmailWrong] = useState(false)
     const [orderId, setOrderId] = useState("")
+    const [orderDetail, setOrderDetail] = useState({})
+    const [formData, setFormData] = useState({
+        name: '',
+        phone: '',
+        email: ''
+    })
+
 
 
     useEffect(() => {
@@ -24,6 +37,13 @@ const Cart = memo(() => {
         }, 1000);
     }, [isModified])
 
+    const validateEmail = (email) => {
+        return String(email)
+            .toLowerCase()
+            .match(
+                /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+            );
+    };
 
     const onRemove = (currentItemId) => {
 
@@ -37,33 +57,67 @@ const Cart = memo(() => {
         quitarTodo()
     }
 
-    const generarOrden = () => {
+    const abrirFormulario = () => {
+        setShowModal(true)
+    }
+
+    const generarOrden = (e) => {
+
+        e.preventDefault()
+
+        if (formData.name === "" || formData.name === undefined) {
+            setNameWrong(true)
+            return
+        } else {
+            setNameWrong(false)
+        }
+
+        if (formData.phone === "" || formData.phone === undefined || isNaN(formData.phone)) {
+            setTelWrong(true)
+            return
+        } else {
+            setTelWrong(false)
+        }
+
+        if (validateEmail(formData.email)) {
+            setEmailWrong(false)
+        } else {
+            setEmailWrong(true)
+            return
+        }
+
+
+        setIsFormSent(true)
 
         let orden = {}
         orden.date = firebase.firestore.Timestamp.fromDate(new Date())
         orden.total = precioTotal()
-        orden.buyer = { nombre: "Nicolas Canteros", mail: "canteros21@gmail.com", tel: "48218180" }
+        orden.buyer = formData
         orden.items = cartList.map(cartItem => {
             const id = cartItem.id
             const nombre = cartItem.nombre
+            const cantidad = cartItem.cantidadAgregada
             const precio = cartItem.precio * cartItem.cantidadAgregada
 
-            return { id, nombre, precio }
+
+            return { id, nombre, cantidad, precio }
         })
 
 
         const dbQuery = getFirestore()
         dbQuery.collection("ordenes").add(orden)
             .then(resp => {
-                console.log(resp)
                 setOrderId(resp.id)
+                setOrderDetail(orden.items)
             })
             .catch(err => console.log(err))
             .finally(() => {
-                setShowModal(true)
+                setOrderDone(true)
             })
 
-        /*const itemsToUpdate = dbQuery.collection("productos").where(
+
+
+        const itemsToUpdate = dbQuery.collection("productos").where(
             firebase.firestore.FieldPath.documentId(), "in", cartList.map(i => i.id)
         )
 
@@ -81,15 +135,27 @@ const Cart = memo(() => {
                     console.log('resultado batch:', res);
                 })
             })
-        */
 
 
-        console.log(orden)
 
     }
 
+    const handleChange = (e) => {
+        setFormData({
+            ...formData,
+            [e.target.name]: e.target.value
+        })
+    }
 
-    const handleClose = () => { setShowModal(false) }
+    const handleClose = () => {
+        setShowModal(false)
+        setIsFormSent(false)
+
+        if (orderDone) {
+            removeAll()
+        }
+
+    }
 
     return (
         <>
@@ -117,13 +183,59 @@ const Cart = memo(() => {
                         </Row>
                         <Row>
                             <Col xs={{ span: 3, offset: 9 }}>
-                                <button className="btn-terminar-compra" onClick={generarOrden}>Terminar Compra</button>
+                                <button className="btn-terminar-compra" onClick={abrirFormulario}>Terminar Compra</button>
                             </Col>
                             <Modal show={showModal} onHide={handleClose}>
-                                <Modal.Header closeButton>
-                                    <Modal.Title>¡Gracias por su compra!</Modal.Title>
-                                </Modal.Header>
-                                <Modal.Body>El código de seguimiento de su orden es: <b>{orderId}</b></Modal.Body>
+                                {
+                                    isFormSent ?
+
+                                        orderDone ?
+                                            <>
+                                                <Modal.Header closeButton>
+                                                    <Modal.Title>¡Gracias por su compra!</Modal.Title>
+                                                </Modal.Header>
+                                                <Modal.Body className="order-ready">
+                                                    <h4>El código de seguimiento de su orden es: <b>{orderId}</b></h4>
+                                                    <OrderList orderDetail={orderDetail} />
+                                                </Modal.Body>
+                                            </>
+                                            :
+                                            <>
+                                                <Modal.Header>
+                                                    <Modal.Title>Confirmando la compra</Modal.Title>
+                                                </Modal.Header>
+                                                <Modal.Body>Espere unos segundos...</Modal.Body>
+                                            </>
+                                        :
+                                        <>
+                                            <Modal.Header closeButton>
+                                                <Modal.Title>Completá los datos de facturación</Modal.Title>
+                                            </Modal.Header>
+                                            <Modal.Body>
+                                                <form className='buyer-form'
+                                                    onSubmit={generarOrden}
+                                                    onChange={handleChange}
+                                                >
+
+                                                    <div className={nameWrong ? "input-group input-name error" : "input-group input-name"}>
+                                                        <label htmlFor="name">Nombre completo:</label>
+                                                        <input type='text' name='name'  defaultValue={formData.name}/>
+                                                    </div>
+                                                    <div className={telWrong ? "input-group input-tel error" : "input-group input-tel"}>
+                                                        <label htmlFor="name">Teléfono/Celular:</label>
+                                                        <input type='text' name='phone' defaultValue={formData.phone} />
+                                                    </div>
+                                                    <div className={emailWrong ? "input-group input-email error" : "input-group input-email"}>
+                                                        <label htmlFor="name">Email:</label>
+                                                        <input type='email' name='email' className={emailWrong ? "error" : ""} defaultValue={formData.email} />
+                                                    </div>
+                                                    <button>Listo!</button>
+                                                </form>
+
+                                            </Modal.Body>
+                                        </>
+                                }
+
                             </Modal>
                         </Row>
                     </Container >

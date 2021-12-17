@@ -3,18 +3,8 @@ import { Container, Row } from 'react-bootstrap'
 import { useParams } from 'react-router-dom';
 import { getFirestore } from '../../services/getFirestore.js';
 import ItemList from '../ItemList/ItemList.jsx'
-import { productos } from '../Products.jsx'
 
 import './ItemListContainer.css';
-
-
-const getProductos = new Promise((res, rej) => {
-    setTimeout(() => {
-        res(productos)
-
-    }, 2000);
-    //rej('404')
-})
 
 
 const ItemListContainer = ({ isNovedad }) => {
@@ -28,11 +18,12 @@ const ItemListContainer = ({ isNovedad }) => {
 
     useEffect(() => {
 
-        const dbQuery = getFirestore()
+        const db = getFirestore()
+        const dbQueryProductos = db.collection("productos")
 
         if (categoria !== undefined) {
 
-            dbQuery.collection("productos").where("categoria", "==", categoria).get()
+            dbQueryProductos.where("categoria", "==", categoria).get()
                 .then(data => {
                     setProducts(data.docs.map(prod => ({ id: prod.id, ...prod.data() })))
                 })
@@ -43,7 +34,7 @@ const ItemListContainer = ({ isNovedad }) => {
 
         } else if (isNovedad) {
 
-            dbQuery.collection("productos").where("isNovedad", "==", true).get()
+            dbQueryProductos.where("isNovedad", "==", true).get()
                 .then(data => {
                     setProducts(data.docs.map(prod => ({ id: prod.id, ...prod.data() })))
                 })
@@ -53,7 +44,7 @@ const ItemListContainer = ({ isNovedad }) => {
 
         } else {
 
-            dbQuery.collection("productos").get()
+            dbQueryProductos.get()
                 .then(data => {
                     setProducts(data.docs.map(prod => ({ id: prod.id, ...prod.data() })))
                 })
@@ -63,33 +54,6 @@ const ItemListContainer = ({ isNovedad }) => {
                 
         }
 
-
-
-        /*if (categoria !== undefined) {
-
-            getProductos
-                .then(res => {
-                    setProducts(res.filter(prod => prod.categoria === categoria))
-                }).catch((err) => {
-                    console.log(`Error: ${err}`);
-                }).finally(() => setLoading(false))
-
-        } else if (isNovedad) {
-            getProductos
-                .then(res => {
-                    setProducts(res.filter(prod => prod.isNovedad === isNovedad))
-                }).catch((err) => {
-                    console.log(`Error: ${err}`);
-                }).finally(() => setLoading(false))
-        } else {
-
-            getProductos
-                .then(res => {
-                    setProducts(res)
-                }).catch((err) => {
-                    console.log(`Error: ${err}`);
-                }).finally(() => setLoading(false))
-        }*/
 
     }, [categoria, isNovedad])
 

@@ -1,5 +1,4 @@
-import { useState, useEffect } from 'react'
-import { Row, Col, Image, InputGroup, Button } from 'react-bootstrap'
+import { Row, Col, Image } from 'react-bootstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons'
 
@@ -26,11 +25,6 @@ const CartListItem = ({ product, onRemove }) => {
             </Col>
             <Col xs="2">
                 <h3>x{product.cantidadAgregada}</h3>
-                {/*<InputGroup className="counter-group mb-3 item-count-cart-list">
-                    <Button variant="outline-secondary" className="counter-group-button" onClick={restarCantidad}>-</Button>
-                    <Button variant="outline-secondary" className="counter-group-button counter-disabled" disabled>{count}</Button>
-                    <Button variant="outline-secondary" className="counter-group-button" onClick={sumarCantidad}>+</Button>
-                </InputGroup>*/}
             </Col>
             <Col xs="1">
                 <span className="subtotal">${product.subtotal}</span>

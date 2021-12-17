@@ -1,4 +1,4 @@
-import { React, useState, useEffect } from 'react'
+import { React } from 'react'
 import { Row, Col, Image } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom'
 import { useCartContext } from '../../context/CartContext.jsx';
@@ -10,7 +10,6 @@ import './ItemDetail.css';
 
 const ItemDetail = ({ product }) => {
 
-    const [count, setCount] = useState(0);
 
     const { agregarAlCarro, totalItems, setTotalItems } = useCartContext()
 
@@ -19,7 +18,6 @@ const ItemDetail = ({ product }) => {
     const onAdd = (cantidad) => {
 
         let subtotal = product.precio * cantidad
-        setCount(cantidad)
         setTotalItems(totalItems + cantidad)
         agregarAlCarro({ ...product, cantidadAgregada: cantidad, subtotal: subtotal }, cantidad, subtotal)
     }

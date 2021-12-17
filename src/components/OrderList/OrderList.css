@@ -1,0 +1,14 @@
+.order-ready h6 {
+    margin-top: 4vh;
+    margin-bottom: 2vh;
+}
+
+.order-ready h5 {
+    font-size: 1.1em;
+    color: rgb(58, 58, 58);
+}
+
+.order-ready h5 b {
+    font-size: 1em;
+    color: #000;
+}

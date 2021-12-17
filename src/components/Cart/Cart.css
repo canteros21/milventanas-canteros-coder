@@ -100,11 +100,68 @@
     background-color: rgb(199, 5, 5);
     border-radius: .5em;
     padding: .65vh 1.2vw;
-    font-size: 1.6em;
+    font-size: 1.3em;
     color: #FFF;
     font-weight: bold;
     border: none;
     width: 100%;
-    text-transform: uppercase;
     margin-top: 5vh;
+}
+
+.buyer-form {
+    overflow: hidden;
+}
+
+.buyer-form label {
+    font-size: 1.1em;
+    margin-bottom: 1vh;
+    display: block;
+}
+
+.buyer-form input {
+    display: block;
+    width: 100%;
+    margin-bottom: 2vh;
+    border-radius: .5em!important;
+    padding: 1vh 1vw;
+    font-size: 1.1em;
+    box-shadow: 1px 1px 1px #ddd;
+    border: #ddd 1px solid;
+    margin-left: auto!important;
+}
+
+.buyer-form .error input {
+    box-shadow: 1px 1px 1px rgba(136, 0, 0, 0.45);
+    border: rgb(170, 0, 0) 1px solid;
+}
+
+.buyer-form .error::after {
+    content: "";
+    color: rgb(170, 0, 0);
+    display: block;
+    margin-top: -1vh;
+    margin-bottom: 1.3vh;
+}
+
+.buyer-form .error.input-name::after {
+    content: "Ingrese nombre completo";
+}
+
+.buyer-form .error.input-tel::after {
+    content: "Ingrese tel/cel válido";
+}
+
+.buyer-form .error.input-email::after {
+    content: "Ingrese email válido";
+}
+
+.buyer-form button {
+    float: right;
+    margin-top: 1vh;
+    background-color: rgb(243, 239, 14);
+    color: rgb(0, 0, 0);
+    border: none;
+    border-radius: .5em;
+    padding: 1vh 1vw;
+    font-size: 1.1em;
 }
