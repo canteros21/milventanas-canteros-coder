@@ -155,6 +155,10 @@
     content: "Ingrese email válido";
 }
 
+.buyer-form .error.input-email-confirm::after {
+    content: "Ambos emails deben ser iguales";
+}
+
 .buyer-form button {
     float: right;
     margin-top: 1vh;

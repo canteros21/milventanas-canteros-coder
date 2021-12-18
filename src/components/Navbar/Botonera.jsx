@@ -9,9 +9,7 @@ import './Botonera.css';
 const botones = [
     { id: 0, nombre: "Novedades", link: "/novedades" },
     { id: 1, nombre: "Nacional", link: "/categoria/nacional" },
-    { id: 2, nombre: "Internacional", link: "/categoria/internacional" },
-    //{ id: 3, nombre: "Editoriales", link: "editoriales"},
-    { id: 3, nombre: "Contacto", link: "/contacto" },
+    { id: 2, nombre: "Internacional", link: "/categoria/internacional" }
 
 ]
 

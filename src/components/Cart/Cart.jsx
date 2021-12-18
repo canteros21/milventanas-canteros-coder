@@ -21,12 +21,14 @@ const Cart = memo(() => {
     const [nameWrong, setNameWrong] = useState(false)
     const [telWrong, setTelWrong] = useState(false)
     const [emailWrong, setEmailWrong] = useState(false)
+    const [emailConfirmWrong, setEmailConfirmWrong] = useState(false)
     const [orderId, setOrderId] = useState("")
     const [orderDetail, setOrderDetail] = useState({})
     const [formData, setFormData] = useState({
         name: '',
         phone: '',
-        email: ''
+        email: '',
+        emailConfirm: ''
     })
 
 
@@ -81,6 +83,14 @@ const Cart = memo(() => {
 
         if (validateEmail(formData.email)) {
             setEmailWrong(false)
+
+            if (formData.emailConfirm != formData.email) {
+                setEmailConfirmWrong(true)
+                return
+            } else {
+                setEmailConfirmWrong(false)
+            }
+
         } else {
             setEmailWrong(true)
             return
@@ -219,15 +229,19 @@ const Cart = memo(() => {
 
                                                     <div className={nameWrong ? "input-group input-name error" : "input-group input-name"}>
                                                         <label htmlFor="name">Nombre completo:</label>
-                                                        <input type='text' name='name'  defaultValue={formData.name}/>
+                                                        <input type='text' name='name' defaultValue={formData.name} />
                                                     </div>
                                                     <div className={telWrong ? "input-group input-tel error" : "input-group input-tel"}>
-                                                        <label htmlFor="name">Teléfono/Celular:</label>
+                                                        <label htmlFor="phone">Teléfono/Celular:</label>
                                                         <input type='text' name='phone' defaultValue={formData.phone} />
                                                     </div>
                                                     <div className={emailWrong ? "input-group input-email error" : "input-group input-email"}>
-                                                        <label htmlFor="name">Email:</label>
-                                                        <input type='email' name='email' className={emailWrong ? "error" : ""} defaultValue={formData.email} />
+                                                        <label htmlFor="email">Email:</label>
+                                                        <input type='text' name='email' className={emailWrong ? "error" : ""} defaultValue={formData.email} />
+                                                    </div>
+                                                    <div className={emailConfirmWrong ? "input-group input-email-confirm error" : "input-group input-email-confirm"}>
+                                                        <label htmlFor="emailConfirm">Confirmación de Email:</label>
+                                                        <input type='text' name='emailConfirm' className={emailConfirmWrong ? "error" : ""} defaultValue={formData.emailConfirm} />
                                                     </div>
                                                     <button>Listo!</button>
                                                 </form>
